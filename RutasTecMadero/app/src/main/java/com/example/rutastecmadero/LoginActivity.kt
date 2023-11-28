@@ -13,7 +13,7 @@ class LoginActivity : AppCompatActivity() {
         btnAceptar = findViewById(R.id.button)
 
         btnAceptar.setOnClickListener {
-            val intent = Intent(this@LoginActivity, PrincipalActivity::class.java)
+            val intent = Intent(this, PrincipalActivity::class.java)
             startActivity(intent)
         }
 

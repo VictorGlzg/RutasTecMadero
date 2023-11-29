@@ -1,12 +1,11 @@
 package com.example.rutastecmadero
 
-import androidx.fragment.app.Fragment
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import android.widget.Button
-import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
 import com.example.rutastecmadero.databinding.ActivityPrincipalBinding
-import com.google.android.material.bottomnavigation.BottomNavigationView
+
 
 class PrincipalActivity : AppCompatActivity(){
     lateinit var binding : ActivityPrincipalBinding
@@ -34,6 +33,5 @@ class PrincipalActivity : AppCompatActivity(){
     private fun replaceFragment(f : Fragment) {
         supportFragmentManager.beginTransaction().replace(R.id.fragmentPrincipal,f).commit()
     }
-
 
 }

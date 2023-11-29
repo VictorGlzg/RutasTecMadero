@@ -7,8 +7,15 @@
     android:background="@color/white">
 
     <TextView
+        android:id="@+id/title"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/config" />
+        android:layout_height="wrap_content"
+        android:text="@string/config"
+        android:fontFamily="monospace"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        android:textSize="35sp"
+        android:layout_marginTop="30dp"/>
 
 </FrameLayout>

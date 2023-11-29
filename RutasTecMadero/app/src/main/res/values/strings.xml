@@ -1,6 +1,6 @@
 <resources>
     <string name="app_name">RutasTecMadero</string>
-    <string name="Chatbot">Chatbot</string>
+    <string name="Chatbot">Chatbot auxiliar</string>
     <string name="maps">Mapa</string>
     <string name="config">Config</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>

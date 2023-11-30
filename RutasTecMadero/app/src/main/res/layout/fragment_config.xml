@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,14 +9,148 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="match_parent"
+        android:layout_width="358dp"
         android:layout_height="wrap_content"
-        android:text="@string/config"
-        android:fontFamily="monospace"
-        android:textColor="@color/black"
-        android:textStyle="bold"
+        android:layout_marginTop="30dp"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="sans-serif"
+        android:text="Configuración de la aplicación"
         android:textAlignment="center"
-        android:textSize="35sp"
-        android:layout_marginTop="30dp"/>
+        android:textColor="@color/black"
+        android:textSize="26sp"
+        android:textStyle="bold"/>
 
-</FrameLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/title"
+        android:layout_marginTop="20dp"
+        android:background="@color/darker_white">
+
+        <TextView
+            android:id="@+id/habMaps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_margin="10dp"
+            android:text="Habilitar o deshabilitar elementos en el mapa:"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/marcs"
+            android:theme="@style/AppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_below="@id/habMaps"
+            android:layout_centerHorizontal="true"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="5dp"
+            android:layout_marginBottom="5dp"
+            android:text="Marcadores"
+            android:textColor="@color/black"
+            android:textSize="25sp"
+            android:checked="true"
+            android:thumb="@drawable/switch_thumb"
+            app:track="@drawable/switch_track"
+            app:switchPadding="10dp"/>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/ramps"
+            android:theme="@style/AppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:text="Rampas"
+            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:layout_below="@id/marcs"
+            android:layout_margin="5dp"
+            android:layout_centerHorizontal="true"
+            android:checked="true"
+            android:thumb="@drawable/switch_thumb"
+            app:track="@drawable/switch_track"
+            app:switchPadding="10dp" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/ruts"
+            android:theme="@style/AppTheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rutas"
+            android:textSize="25sp"
+            android:textColor="@color/black"
+            android:layout_below="@id/ramps"
+            android:layout_margin="5dp"
+            android:layout_centerHorizontal="true"
+            android:switchTextAppearance="@color/black"
+            android:checked="true"
+            android:thumb="@drawable/switch_thumb"
+            app:track="@drawable/switch_track"
+            app:switchPadding="10dp" />
+
+        <View
+            android:id="@+id/div"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/ruts"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/black" />
+
+        <TextView
+            android:id="@+id/confAdc"
+            android:layout_below="@id/div"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:text="Configuración adicional:"/>
+
+        <TextView
+            android:id="@+id/textoTipoMapa"
+            android:layout_below="@id/confAdc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_margin="15dp"
+            android:text="Seleccione el tipo de mapa:"/>
+
+        <Spinner
+            android:id="@+id/mapType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/confAdc"
+            android:layout_marginTop="15dp"
+            android:layout_toEndOf="@id/textoTipoMapa"/>
+
+        <TextView
+            android:id="@+id/textoColor"
+            android:layout_below="@id/textoTipoMapa"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginLeft="15dp"
+            android:text="Cambiar color de la ruta:"/>
+
+        <SeekBar
+            android:id="@+id/seekbar_font"
+            android:layout_below="@id/textoColor"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="180dp"
+            android:scaleX="2"
+            android:scaleY="2"
+            android:layout_height="wrap_content"
+            android:max="100"
+            android:progress="50"/>
+
+    </RelativeLayout>
+
+</RelativeLayout>

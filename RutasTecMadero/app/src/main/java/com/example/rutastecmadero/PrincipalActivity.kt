@@ -10,6 +10,10 @@ import com.example.rutastecmadero.databinding.ActivityPrincipalBinding
 
 class PrincipalActivity : AppCompatActivity(){
     lateinit var binding : ActivityPrincipalBinding
+    val cbFragment = ChatbotFragment()
+    val mpFragment = MapFragment()
+    val conFragment = ConfigFragment()
+
     //val bNavegationView = findViewById<BottomNavigationView>(R.id.navBar)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,9 +25,9 @@ class PrincipalActivity : AppCompatActivity(){
 
         binding.navBar.setOnItemSelectedListener {
             when(it.itemId){
-                R.id.chatbotOpc -> replaceFragment(ChatbotFragment())
-                R.id.mapaOpc -> replaceFragment(MapFragment())
-                R.id.configOpc -> replaceFragment(ConfigFragment())
+                R.id.chatbotOpc -> replaceFragment(cbFragment)
+                R.id.mapaOpc -> replaceFragment(mpFragment)
+                R.id.configOpc -> replaceFragment(conFragment)
                 else -> {}
             }
             true

@@ -74,6 +74,7 @@
         android:layout_height="match_parent"
         android:layout_above="@id/ll_layout_bar"
         android:layout_below="@id/title"
+        android:layout_marginTop="5dp"
         tools:itemCount="20"
         tools:listitem="@layout/message_item" />
     <View

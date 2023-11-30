@@ -24,6 +24,14 @@ import com.google.android.gms.maps.model.RoundCap
 class MapFragment : Fragment(), GoogleMap.OnMapClickListener, GoogleMap.OnMapLongClickListener {
     private lateinit var mMap: GoogleMap
     private lateinit var supportMapFragment : SupportMapFragment
+    //VARS PARA CONFIGURAR
+    private var rutas = true
+    private var rampas = true
+    private var marcadores = true
+    private var c = R.color.cyan
+    // private var tipoMapa =
+    private var lastCamara = LatLng(22.257027863336113, -97.85040616776612)
+
     companion object{
         const val REQUEST_CODE_LOCATION = 0
     }
@@ -43,18 +51,21 @@ class MapFragment : Fragment(), GoogleMap.OnMapClickListener, GoogleMap.OnMapLon
             this.mMap.setOnMapClickListener(this)
             this.mMap.setOnMapLongClickListener(this)
             //mMap.setMinZoomPreference(17.8f)
-            drawPolygon()
-            createPolylines()
+            if(rampas)
+                drawPolygon()
+            if(rutas)
+                createPolylines()
 
-            val campus2 = LatLng(22.257027863336113, -97.85040616776612)
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(campus2))
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(lastCamara))
 
-            //val uas = LatLng(22.256417723605228, -97.85059487755778)
+            if(marcadores){
+                //val uas = LatLng(22.256417723605228, -97.85059487755778)
 
-            //val options = MarkerOptions().position(uas).title("Unidad Academica de Sistemas")
-            //options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE))
+                //val options = MarkerOptions().position(uas).title("Unidad Academica de Sistemas")
+                //options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE))
 
-            //mMap.addMarker(options)
+                //mMap.addMarker(options)
+            }
 
             enableLocation()
         }
@@ -109,7 +120,7 @@ class MapFragment : Fragment(), GoogleMap.OnMapClickListener, GoogleMap.OnMapLon
             .add(LatLng(22.257765126323974,-97.85053103007746))
 
             .width(12f)
-            .color(ContextCompat.getColor(requireActivity().baseContext,R.color.cyan))
+            .color(ContextCompat.getColor(requireActivity().baseContext,c))
 
         val polyline = mMap.addPolyline(polylineOptions)
         polyline.startCap = RoundCap()

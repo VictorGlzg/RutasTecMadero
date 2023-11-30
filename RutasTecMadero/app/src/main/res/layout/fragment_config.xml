@@ -151,6 +151,47 @@
             android:max="100"
             android:progress="50"/>
 
+        <TextView
+            android:id="@+id/textoReset"
+            android:layout_below="@id/seekbar_font"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="15dp"
+            android:text="Reiniciar configuración por defecto:"/>
+
+        <Button
+            android:id="@+id/btnReset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="RESET"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/textoReset"/>
+
+        <View
+            android:id="@+id/div2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/btnReset"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/black" />
+
+        <CheckBox
+            android:id="@+id/checkTEST"
+            android:layout_below="@id/div2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="15dp"
+            android:text="Activar modo de pruebas (desarollador)"/>
+
     </RelativeLayout>
 
 </RelativeLayout>

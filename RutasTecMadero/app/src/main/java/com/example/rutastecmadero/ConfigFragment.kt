@@ -1,6 +1,7 @@
 package com.example.rutastecmadero
 
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,7 @@ import android.widget.CheckBox
 import android.widget.SeekBar
 import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
-
+import java.io.Serializable
 
 class ConfigFragment : Fragment() {
     lateinit var btnReset : Button
@@ -19,14 +20,33 @@ class ConfigFragment : Fragment() {
     lateinit var tglRamp : SwitchCompat
     lateinit var tglRut : SwitchCompat
     lateinit var chkBox : CheckBox
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    var progresoBarra = 0
+    var colorActual = 0
+    var firstColor = true
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putSerializable("toggleMarcador",tglMarc.isEnabled)
+        outState.putSerializable("toggleRampa",tglRamp.isEnabled)
+        outState.putSerializable("toggleRuta",tglRut.isEnabled)
+        outState.putSerializable("progress",progresoBarra)
+        outState.putSerializable("bgColor",colorActual)
+        outState.putSerializable("checkDev",chkBox.isChecked)
     }
 
+    @Suppress("DEPRECATION")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        if(savedInstanceState != null) {
+            tglMarc.isEnabled = savedInstanceState.getSerializable("toggleMarcador") as Boolean
+            tglRamp.isEnabled = savedInstanceState.getSerializable("toggleRampa") as Boolean
+            tglRut.isEnabled = savedInstanceState.getSerializable("toggleRuta") as Boolean
+            progresoBarra = savedInstanceState.getSerializable("progress") as Int
+            colorActual = savedInstanceState.getSerializable("bgColor") as Int
+            chkBox.isChecked = savedInstanceState.getSerializable("checkDev") as Boolean
+        }
+
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_config, container, false)
     }
@@ -42,8 +62,19 @@ class ConfigFragment : Fragment() {
 
 
         seekBarFont.setMax(256 * 7 - 1);
-        seekBarFont.progress = 848
-        seekBarFont.setBackgroundColor((Color.argb(255, 0, 212, 212)))
+        if(firstColor){
+            seekBarFont.progress = 848
+            seekBarFont.setBackgroundColor((Color.argb(255, 0, 212, 212)))
+            firstColor = false
+        }else{
+            seekBarFont.progress = progresoBarra
+            seekBarFont.setBackgroundColor(colorActual)
+            // En caso de cargar mal el color por defecto
+            if(colorActual== 0){
+                seekBarFont.progress = 848
+                seekBarFont.setBackgroundColor((Color.argb(255, 0, 212, 212)))
+            }
+        }
         seekBarFont.setOnSeekBarChangeListener(object : SeekBar.OnSeekBarChangeListener {
             override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
                 if (fromUser) {
@@ -75,7 +106,10 @@ class ConfigFragment : Fragment() {
                         g = 255
                         b = progress % 256
                     }
-                    seekBarFont.setBackgroundColor(Color.argb(255, r, g, b))
+                    progresoBarra = progress
+                    colorActual = Color.argb(255, r, g, b)
+                    seekBarFont.setBackgroundColor(colorActual)
+
                 }
             }
 
@@ -95,6 +129,7 @@ class ConfigFragment : Fragment() {
             tglRamp.isChecked=true
             tglRut.isChecked=true
             chkBox.isChecked=false
+            firstColor=true
         }
     }
 }

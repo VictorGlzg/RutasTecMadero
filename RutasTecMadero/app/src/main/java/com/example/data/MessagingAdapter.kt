@@ -12,11 +12,14 @@ import kotlinx.android.synthetic.main.message_item.view.tv_message
 
 class MessagingAdapter:RecyclerView.Adapter<MessagingAdapter.MessageViewHolder>() {
     var messagesList = mutableListOf<Message>()
+    var admin = false
     inner class MessageViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         init{
             itemView.setOnClickListener{
+                if(admin){
                 messagesList.removeAt(adapterPosition)
                 notifyItemRemoved(adapterPosition)
+                }
             }
         }
     }

@@ -18,6 +18,7 @@ import com.example.data.Message
 import com.example.data.MessagingAdapter
 import com.example.data.Time
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.activity_principal.navBar
 import kotlinx.android.synthetic.main.fragment_chatbot.entradaTexto
 import kotlinx.android.synthetic.main.fragment_chatbot.rv_messages
 import kotlinx.coroutines.Dispatchers
@@ -25,6 +26,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.io.Serializable
 import java.util.Locale
 
 class ChatbotFragment : Fragment() {
@@ -32,13 +34,18 @@ class ChatbotFragment : Fragment() {
     private lateinit var mic: FloatingActionButton
     private lateinit var send: FloatingActionButton
     private lateinit var entrada: EditText
+    var firstAdapter = true
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putSerializable("data",adapter as Serializable)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        if(savedInstanceState != null) {
+            adapter = savedInstanceState.getSerializable("data") as MessagingAdapter
+        }
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_chatbot, container, false)
     }
@@ -56,6 +63,7 @@ class ChatbotFragment : Fragment() {
         }
 
         send.setOnClickListener{
+            pauseBottomNav()
             sendMessage()
         }
 
@@ -67,15 +75,20 @@ class ChatbotFragment : Fragment() {
                 }
             }
         }
+        if(firstAdapter){
 
+        pauseBottomNav()
         customMessage("Bienvenido a la aplicación Rutas Tec. Madero, mi nombre es Victor, espero ser de su ayuda, sugerencias: comandos Ayuda o Información")
-
         GlobalScope.launch {
             delay(1000)
             withContext(Dispatchers.Main) {
                 rv_messages.scrollToPosition(adapter.itemCount-1)
+                resumeBottomNav()
                 }
             }
+            firstAdapter = false
+        }
+
     }
 
     @Suppress("DEPRECATION")
@@ -100,8 +113,22 @@ class ChatbotFragment : Fragment() {
         }
     }
 
+    private fun resumeBottomNav(){
+        //Continuidad de la app
+        requireActivity().navBar.menu.getItem(1).isEnabled=true
+        requireActivity().navBar.menu.getItem(2).isEnabled=true
+    }
+
+    private fun pauseBottomNav(){
+        //Evitar que salgan del fragment, hasta recibir mensaje del bot [Evitar crash]
+        requireActivity().navBar.menu.getItem(1).isEnabled=false
+        requireActivity().navBar.menu.getItem(2).isEnabled=false
+    }
+
     private fun recyclerView(){
-        adapter = MessagingAdapter()
+        if(firstAdapter){
+            adapter = MessagingAdapter()
+        }
         rv_messages.adapter = adapter
         rv_messages.layoutManager = LinearLayoutManager(requireActivity().applicationContext)
     }
@@ -120,6 +147,7 @@ class ChatbotFragment : Fragment() {
     }
 
     private fun customMessage(message:String){
+
         GlobalScope.launch {
             delay(1000)
             withContext(Dispatchers.Main){
@@ -139,6 +167,7 @@ class ChatbotFragment : Fragment() {
                 val response = BotResponse.basicResponses(message)
                 adapter.insertMessage(Message(response, RECEIVE_ID, timeStamp))
                 rv_messages.scrollToPosition(adapter.itemCount-1)
+                resumeBottomNav()
             }
         }
     }

@@ -36,10 +36,6 @@ class MapFragment : Fragment(), GoogleMap.OnMapClickListener, GoogleMap.OnMapLon
         const val REQUEST_CODE_LOCATION = 0
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         // Initialize view
         val view = inflater.inflate(R.layout.fragment_map, container, false)
@@ -50,7 +46,7 @@ class MapFragment : Fragment(), GoogleMap.OnMapClickListener, GoogleMap.OnMapLon
             mMap = it
             this.mMap.setOnMapClickListener(this)
             this.mMap.setOnMapLongClickListener(this)
-            //mMap.setMinZoomPreference(17.8f)
+            mMap.setMinZoomPreference(17.8f)
             if(rampas)
                 drawPolygon()
             if(rutas)

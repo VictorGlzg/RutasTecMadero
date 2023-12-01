@@ -26,7 +26,7 @@ class ConfigFragment : Fragment() {
     lateinit var spinner : Spinner
     var typeMap = GoogleMap.MAP_TYPE_NORMAL
     var opcSpinner = 0
-    var progresoBarra = 0
+    var progresoBarra = 848
     var colorActual = 0
     var firstColor = true
     var init = false

@@ -6,4 +6,8 @@
         <item name="colorControlActivated">@color/low_pink</item>
         <item name="android:statusBarColor" tools:targetApi="1">@color/light_orange</item>
     </style>
+
+    <style name="SplashTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splashscreen</item>
+    </style>
 </resources>

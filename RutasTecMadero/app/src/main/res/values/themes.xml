@@ -5,7 +5,12 @@
         <item name="android:colorForeground">@color/low_pink</item>
         <item name="colorControlActivated">@color/low_pink</item>
         <item name="android:statusBarColor" tools:targetApi="1">@color/light_orange</item>
+        <item name="android:windowBackground">@drawable/splashscreen</item>
     </style>
 
     <style name="Theme.RutasTecMadero" parent="Base.Theme.RutasTecMadero" />
+
+    <style name="SplashTheme" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="android:windowBackground">@drawable/splashscreen</item>
+    </style>
 </resources>

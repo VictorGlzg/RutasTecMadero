@@ -1,14 +1,11 @@
 package com.example.rutastecmadero
 
-import android.content.Intent
-import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.rutastecmadero.databinding.ActivityPrincipalBinding
-import java.io.Serializable
 
 
 class PrincipalActivity : AppCompatActivity(){
@@ -20,6 +17,7 @@ class PrincipalActivity : AppCompatActivity(){
     //val bNavegationView = findViewById<BottomNavigationView>(R.id.navBar)
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Base_Theme_RutasTecMadero)
         super.onCreate(savedInstanceState)
 
         binding = ActivityPrincipalBinding.inflate(layoutInflater)
@@ -29,7 +27,7 @@ class PrincipalActivity : AppCompatActivity(){
 
         binding.navBar.setOnItemSelectedListener {
             when(it.itemId){
-                R.id.chatbotOpc -> replaceFragment(cbFragment)
+                R.id.chatbotOpc -> loadChatBot()
                 R.id.mapaOpc -> loadMap()
                 R.id.configOpc -> replaceFragment(conFragment)
                 else -> {}
@@ -37,6 +35,12 @@ class PrincipalActivity : AppCompatActivity(){
             true
         }
 
+    }
+    private fun loadChatBot(){
+        if(cbFragment.init){
+            cbFragment.adapter.admin = conFragment.chkBox.isChecked
+        }
+        replaceFragment(cbFragment)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

@@ -8,6 +8,7 @@ import android.widget.Button
 class LoginActivity : AppCompatActivity() {
     lateinit var btnAceptar : Button
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Base_Theme_RutasTecMadero)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         btnAceptar = findViewById(R.id.button)

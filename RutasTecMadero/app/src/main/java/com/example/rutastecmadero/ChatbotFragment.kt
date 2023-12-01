@@ -30,11 +30,12 @@ import java.io.Serializable
 import java.util.Locale
 
 class ChatbotFragment : Fragment() {
-    private lateinit var adapter : MessagingAdapter
+    lateinit var adapter : MessagingAdapter
     private lateinit var mic: FloatingActionButton
     private lateinit var send: FloatingActionButton
     private lateinit var entrada: EditText
     private lateinit var data : MutableList<Message>
+    var init = false
     var firstAdapter = true
 
     override fun onCreateView(
@@ -51,7 +52,7 @@ class ChatbotFragment : Fragment() {
         entrada = requireView().findViewById(R.id.entradaTexto) as EditText
         mic = requireView().findViewById(R.id.mic) as FloatingActionButton
         send = requireView().findViewById(R.id.send) as FloatingActionButton
-
+        init = true
         recyclerView()
 
         mic.setOnClickListener{

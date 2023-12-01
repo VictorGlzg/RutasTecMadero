@@ -64,12 +64,22 @@ class MapFragment : Fragment(), GoogleMap.OnMapClickListener, GoogleMap.OnMapLon
             mMap.moveCamera(CameraUpdateFactory.newLatLng(lastCamara))
 
             if(marcadores){
-                //val uas = LatLng(22.256417723605228, -97.85059487755778)
+                val lugares = arrayListOf<String>("Unidad Académica de Sistemas","Laboratorio de computo","Unidad de Industrial","Biblioteca"
+                ,"Laboratorios III y IV Petroquímica","Laboratorios I y II Petroquímica", "Edificio HH", "Edificio QQ", "Edificio EE Aulas de Posgrado",
+                    "Edificio NN Área administrativa")
+                val coords = arrayListOf<LatLng>(LatLng(22.256373686780847, -97.8506313771422),LatLng(22.256833502186403, -97.85099832845263),
+                    LatLng(22.257036644749537, -97.85137640837048),LatLng(22.2571049098605, -97.85075950028491),
+                    LatLng(22.257457475313984, -97.8504157188205),LatLng(22.257457475313984, -97.8504157188205),
+                    LatLng(22.25769516116672, -97.8503634157406),LatLng(22.257508363705455, -97.8500254573988),
+                    LatLng(22.257471128300374, -97.84969353402981),LatLng(22.25736500734525, -97.84979344631954))
 
-                //val options = MarkerOptions().position(uas).title("Unidad Academica de Sistemas")
-                //options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE))
-
-                //mMap.addMarker(options)
+                for (i in 0 until lugares.size){
+                    var posAct = coords.get(i)
+                    var nombre = lugares.get(i)
+                    var options = MarkerOptions().position(posAct).title(nombre)
+                    options.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE))
+                    mMap.addMarker(options)
+                }
             }
             if(tipoMapa != 0){
                 mMap.mapType = tipoMapa
@@ -184,16 +194,99 @@ class MapFragment : Fragment(), GoogleMap.OnMapClickListener, GoogleMap.OnMapLon
 
     private fun drawPolygon(){
         mMap.clear()
-        val polygon = PolygonOptions()
+        var polygon = PolygonOptions()
         .add(LatLng(22.256822042377024, -97.85043489343123))
         .add(LatLng(22.25676885872791, -97.850435947836))
         .add(LatLng(22.256722262028234, -97.85035106826841))
         .add(LatLng(22.256738363507154, -97.85032418095201))
         .add(LatLng(22.25677056646009, -97.85033235258744))
         .add(LatLng(22.256822042377024, -97.85043489343123))
-
         polygon.fillColor(R.color.cyan)
         mMap.addPolygon(polygon)
+
+        polygon = PolygonOptions()
+            .add(LatLng(22.256461518177602, -97.85032200239907))
+            .add(LatLng(22.25643307003203, -97.85026300458387))
+            .add(LatLng(22.256408630262328, -97.85027753688266))
+            .add(LatLng(22.256438034487104, -97.85033724109017))
+            .add(LatLng(22.256461518177602, -97.85032200239907))
+        polygon.fillColor(R.color.cyan)
+        mMap.addPolygon(polygon)
+
+        polygon = PolygonOptions()
+            .add(LatLng(22.256660498885566, -97.85070989436556))
+            .add(LatLng(22.25664230935159, -97.8506754240073))
+            .add(LatLng(22.256626007623694, -97.85068693566284))
+            .add(LatLng(22.256643024372124, -97.85072302142284))
+            .add(LatLng(22.256660498885566, -97.85070989436556))
+        polygon.fillColor(R.color.cyan)
+        mMap.addPolygon(polygon)
+
+        polygon = PolygonOptions()
+            .add(LatLng(22.256835985089907, -97.85054850248126))
+            .add(LatLng(22.256791406054703, -97.85057741963466))
+            .add(LatLng(22.25677468681161, -97.85054346237244))
+            .add(LatLng(22.256819612682108, -97.85051605282715))
+            .add(LatLng(22.256835985089907, -97.85054850248126))
+        polygon.fillColor(R.color.cyan)
+        mMap.addPolygon(polygon)
+
+        polygon = PolygonOptions()
+            .add(LatLng(22.256916389332204, -97.85093310587833))
+            .add(LatLng(22.25690515780029, -97.85094137259516))
+            .add(LatLng(22.256887983334536, -97.85090823859203))
+            .add(LatLng(22.256918470735982, -97.85088800581383))
+            .add(LatLng(22.25692639609747, -97.85090563914842))
+            .add(LatLng(22.256907728277042, -97.85091803112456))
+            .add(LatLng(22.256916389332204, -97.85093310587833))
+        polygon.fillColor(R.color.cyan)
+        mMap.addPolygon(polygon)
+
+        polygon = PolygonOptions()
+            .add(LatLng(22.256879928276987, -97.85052552056094))
+            .add(LatLng(22.256915348157136, -97.85050268529974))
+            .add(LatLng(22.25689949782418, -97.85047288431511))
+            .add(LatLng(22.2568634464766, -97.85049661707))
+            .add(LatLng(22.256879928276987, -97.85052552056094))
+        polygon.fillColor(R.color.cyan)
+        mMap.addPolygon(polygon)
+
+        polygon = PolygonOptions()
+            .add(LatLng(22.257021304580007, -97.8507649132593))
+            .add(LatLng(22.256993188344666, -97.85078358641461))
+            .add(LatLng(22.25698462532806, -97.8507662580681))
+            .add(LatLng(22.257012562909892, -97.85074804632045))
+            .add(LatLng(22.257021304580007, -97.8507649132593))
+        polygon.fillColor(R.color.cyan)
+        mMap.addPolygon(polygon)
+
+        polygon = PolygonOptions()
+            .add(LatLng(22.257043243185763, -97.85080725873011))
+            .add(LatLng(22.257012889458125, -97.85082785596218))
+            .add(LatLng(22.257004464228018, -97.85080832859755))
+            .add(LatLng(22.257033861947335, -97.85078903604152))
+            .add(LatLng(22.257043243185763, -97.85080725873011))
+        polygon.fillColor(R.color.cyan)
+        mMap.addPolygon(polygon)
+
+        polygon = PolygonOptions()
+            .add(LatLng(22.256455559699546, -97.85053007127347))
+            .add(LatLng(22.25642703680721, -97.8505484434349))
+            .add(LatLng(22.256419468092673, -97.85053363005206))
+            .add(LatLng(22.256446557673783, -97.85051534450109))
+            .add(LatLng(22.256455559699546, -97.85053007127347))
+        polygon.fillColor(R.color.cyan)
+        mMap.addPolygon(polygon)
+
+        polygon = PolygonOptions()
+            .add(LatLng(22.256951028993157, -97.85070155052995))
+            .add(LatLng(22.256938223260292, -97.85071085797374))
+            .add(LatLng(22.25692141055785, -97.85067953928238))
+            .add(LatLng(22.256933384170864, -97.85067108565697))
+            .add(LatLng(22.256951028993157, -97.85070155052995))
+        polygon.fillColor(R.color.cyan)
+        mMap.addPolygon(polygon)
+
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

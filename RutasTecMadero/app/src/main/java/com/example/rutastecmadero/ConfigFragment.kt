@@ -5,11 +5,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.CheckBox
 import android.widget.SeekBar
+import android.widget.Spinner
 import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
+import com.google.android.gms.maps.GoogleMap
+
 
 class ConfigFragment : Fragment() {
     lateinit var btnReset : Button
@@ -18,6 +23,9 @@ class ConfigFragment : Fragment() {
     lateinit var tglRamp : SwitchCompat
     lateinit var tglRut : SwitchCompat
     lateinit var chkBox : CheckBox
+    lateinit var spinner : Spinner
+    var typeMap = GoogleMap.MAP_TYPE_NORMAL
+    var opcSpinner = 0
     var progresoBarra = 0
     var colorActual = 0
     var firstColor = true
@@ -30,6 +38,7 @@ class ConfigFragment : Fragment() {
         outState.putSerializable("progress",progresoBarra)
         outState.putSerializable("bgColor",colorActual)
         outState.putSerializable("checkDev",chkBox.isChecked)
+        outState.putSerializable("opcSpinner",opcSpinner)
     }
 
     @Suppress("DEPRECATION")
@@ -44,6 +53,7 @@ class ConfigFragment : Fragment() {
             progresoBarra = savedInstanceState.getSerializable("progress") as Int
             colorActual = savedInstanceState.getSerializable("bgColor") as Int
             chkBox.isChecked = savedInstanceState.getSerializable("checkDev") as Boolean
+            opcSpinner = savedInstanceState.getSerializable("opcSpinner") as Int
         }
 
         // Inflate the layout for this fragment
@@ -59,7 +69,29 @@ class ConfigFragment : Fragment() {
         tglRamp = requireActivity().findViewById(R.id.ramps) as SwitchCompat
         tglRut = requireActivity().findViewById(R.id.ruts) as SwitchCompat
         chkBox = requireActivity().findViewById(R.id.checkTEST) as CheckBox
+        spinner = requireActivity().findViewById(R.id.mapType) as Spinner
+        val datos = requireActivity().resources.getStringArray(R.array.tipoMapas)
 
+        val spnAdapter = ArrayAdapter(requireActivity().baseContext,android.R.layout.simple_spinner_item,datos)
+        spnAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinner.adapter = spnAdapter
+
+        spinner.setSelection(opcSpinner)
+
+        spinner.setOnItemSelectedListener(object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(parentView: AdapterView<*>?, selectedItemView: View?, position: Int, id: Long) {
+            var opc = spnAdapter.getItem(position)
+            when(opc){
+                    "Normal"-> selectedMap(0,GoogleMap.MAP_TYPE_NORMAL)
+                    "Satelite"-> selectedMap(1,GoogleMap.MAP_TYPE_SATELLITE)
+                    "Hibrido"-> selectedMap(2,GoogleMap.MAP_TYPE_HYBRID)
+                    "Terrenal"-> selectedMap(3,GoogleMap.MAP_TYPE_TERRAIN)
+                }
+            }
+
+            override fun onNothingSelected(parentView: AdapterView<*>?) {
+            }
+        })
 
         seekBarFont.setMax(256 * 7 - 1);
         if(firstColor){
@@ -132,6 +164,14 @@ class ConfigFragment : Fragment() {
             tglRut.isChecked=true
             chkBox.isChecked=false
             firstColor=true
+
+            typeMap = GoogleMap.MAP_TYPE_NORMAL
+            spinner.setSelection(0)
         }
+    }
+
+    private fun selectedMap(indx: Int,map : Int){
+        opcSpinner = indx
+        typeMap = map
     }
 }

@@ -2,7 +2,9 @@ package com.example.rutastecmadero
 
 import android.content.Intent
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.rutastecmadero.databinding.ActivityPrincipalBinding
@@ -16,6 +18,7 @@ class PrincipalActivity : AppCompatActivity(){
     val conFragment = ConfigFragment()
 
     //val bNavegationView = findViewById<BottomNavigationView>(R.id.navBar)
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -36,10 +39,11 @@ class PrincipalActivity : AppCompatActivity(){
 
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun loadMap(){
         if(conFragment.init){
             mpFragment.loadConfig(conFragment.tglRut.isChecked,conFragment.tglRamp.isChecked,conFragment.tglMarc.isChecked,
-                conFragment.colorActual,conFragment.chkBox.isChecked)
+                conFragment.colorActual,conFragment.chkBox.isChecked, conFragment.typeMap)
         }
         replaceFragment(mpFragment)
     }

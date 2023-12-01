@@ -34,7 +34,7 @@ class MapFragment : Fragment(), GoogleMap.OnMapClickListener, GoogleMap.OnMapLon
     private var c = 0
     private var configSet = false
     private var zoomLock = true
-    // private var tipoMapa =
+    private var tipoMapa = 0
     private var lastCamara = LatLng(22.257027863336113, -97.85040616776612)
 
     companion object{
@@ -71,7 +71,9 @@ class MapFragment : Fragment(), GoogleMap.OnMapClickListener, GoogleMap.OnMapLon
 
                 //mMap.addMarker(options)
             }
-
+            if(tipoMapa != 0){
+                mMap.mapType = tipoMapa
+            }
             enableLocation()
         }
         return view
@@ -195,10 +197,11 @@ class MapFragment : Fragment(), GoogleMap.OnMapClickListener, GoogleMap.OnMapLon
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    fun loadConfig(tglRut : Boolean, tglRam : Boolean, tglMarc : Boolean, colorRut : Int, zL : Boolean){
+    fun loadConfig(tglRut : Boolean, tglRam : Boolean, tglMarc : Boolean, colorRut : Int, zL : Boolean, map : Int){
         rutas = tglRut
         rampas = tglRam
         marcadores = tglMarc
+        tipoMapa = map
         c = colorRut
         zoomLock=!zL
         configSet = true

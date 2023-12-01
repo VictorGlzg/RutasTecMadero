@@ -6,6 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.rutastecmadero.databinding.ActivityPrincipalBinding
+import java.io.Serializable
 
 
 class PrincipalActivity : AppCompatActivity(){

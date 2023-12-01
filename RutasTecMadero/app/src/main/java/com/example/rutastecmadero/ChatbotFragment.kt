@@ -34,17 +34,13 @@ class ChatbotFragment : Fragment() {
     private lateinit var mic: FloatingActionButton
     private lateinit var send: FloatingActionButton
     private lateinit var entrada: EditText
+    private lateinit var data : MutableList<Message>
     var firstAdapter = true
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putSerializable("data",adapter as Serializable)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         if(savedInstanceState != null) {
-            adapter = savedInstanceState.getSerializable("data") as MessagingAdapter
+            data = savedInstanceState.getSerializable("data") as MutableList<Message>
         }
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_chatbot, container, false)

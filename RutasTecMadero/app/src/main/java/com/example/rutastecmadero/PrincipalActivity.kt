@@ -37,7 +37,7 @@ class PrincipalActivity : AppCompatActivity(){
 
     }
     private fun loadChatBot(){
-        if(cbFragment.init){
+        if(cbFragment.init && conFragment.init){
             cbFragment.adapter.admin = conFragment.chkBox.isChecked
         }
         replaceFragment(cbFragment)

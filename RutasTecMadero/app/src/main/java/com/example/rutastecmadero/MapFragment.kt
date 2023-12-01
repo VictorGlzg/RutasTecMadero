@@ -3,12 +3,15 @@ package com.example.rutastecmadero
 import android.Manifest
 import android.annotation.SuppressLint
 import android.content.pm.PackageManager
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -28,7 +31,9 @@ class MapFragment : Fragment(), GoogleMap.OnMapClickListener, GoogleMap.OnMapLon
     private var rutas = true
     private var rampas = true
     private var marcadores = true
-    private var c = R.color.cyan
+    private var c = 0
+    private var configSet = false
+    private var zoomLock = true
     // private var tipoMapa =
     private var lastCamara = LatLng(22.257027863336113, -97.85040616776612)
 
@@ -46,7 +51,11 @@ class MapFragment : Fragment(), GoogleMap.OnMapClickListener, GoogleMap.OnMapLon
             mMap = it
             this.mMap.setOnMapClickListener(this)
             this.mMap.setOnMapLongClickListener(this)
-            mMap.setMinZoomPreference(17.8f)
+            if(zoomLock){
+                mMap.setMinZoomPreference(17.8f)
+            }else{
+                mMap.setMinZoomPreference(5f)
+            }
             if(rampas)
                 drawPolygon()
             if(rutas)
@@ -69,6 +78,9 @@ class MapFragment : Fragment(), GoogleMap.OnMapClickListener, GoogleMap.OnMapLon
     }
 
     private fun createPolylines(){
+        if(c==0){
+            c = ContextCompat.getColor(requireActivity().baseContext,R.color.cyan)
+        }
         //Trazar las rutas del campus 2
         val polylineOptions = PolylineOptions()
             //entrada rumbo a UAS
@@ -116,7 +128,7 @@ class MapFragment : Fragment(), GoogleMap.OnMapClickListener, GoogleMap.OnMapLon
             .add(LatLng(22.257765126323974,-97.85053103007746))
 
             .width(12f)
-            .color(ContextCompat.getColor(requireActivity().baseContext,c))
+            .color(c)
 
         val polyline = mMap.addPolyline(polylineOptions)
         polyline.startCap = RoundCap()
@@ -180,5 +192,15 @@ class MapFragment : Fragment(), GoogleMap.OnMapClickListener, GoogleMap.OnMapLon
 
         polygon.fillColor(R.color.cyan)
         mMap.addPolygon(polygon)
+    }
+
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun loadConfig(tglRut : Boolean, tglRam : Boolean, tglMarc : Boolean, colorRut : Int, zL : Boolean){
+        rutas = tglRut
+        rampas = tglRam
+        marcadores = tglMarc
+        c = colorRut
+        zoomLock=!zL
+        configSet = true
     }
 }

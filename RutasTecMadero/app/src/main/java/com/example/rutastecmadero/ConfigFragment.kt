@@ -1,7 +1,6 @@
 package com.example.rutastecmadero
 
 import android.graphics.Color
-import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +10,6 @@ import android.widget.CheckBox
 import android.widget.SeekBar
 import androidx.appcompat.widget.SwitchCompat
 import androidx.fragment.app.Fragment
-import java.io.Serializable
 
 class ConfigFragment : Fragment() {
     lateinit var btnReset : Button
@@ -23,6 +21,7 @@ class ConfigFragment : Fragment() {
     var progresoBarra = 0
     var colorActual = 0
     var firstColor = true
+    var init = false
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putSerializable("toggleMarcador",tglMarc.isEnabled)
@@ -53,6 +52,7 @@ class ConfigFragment : Fragment() {
 
     override fun onStart() {
         super.onStart()
+        init = true
         btnReset = requireActivity().findViewById(R.id.btnReset) as Button
         seekBarFont = requireActivity().findViewById(R.id.seekbar_font) as SeekBar
         tglMarc = requireActivity().findViewById(R.id.marcs) as SwitchCompat
@@ -64,7 +64,8 @@ class ConfigFragment : Fragment() {
         seekBarFont.setMax(256 * 7 - 1);
         if(firstColor){
             seekBarFont.progress = 848
-            seekBarFont.setBackgroundColor((Color.argb(255, 0, 212, 212)))
+            colorActual = Color.argb(255, 0, 212, 212)
+            seekBarFont.setBackgroundColor(colorActual)
             firstColor = false
         }else{
             seekBarFont.progress = progresoBarra
@@ -124,7 +125,8 @@ class ConfigFragment : Fragment() {
 
         btnReset.setOnClickListener{
             seekBarFont.progress = 848
-            seekBarFont.setBackgroundColor((Color.argb(255, 0, 212, 212)))
+            colorActual = Color.argb(255, 0, 212, 212)
+            seekBarFont.setBackgroundColor(colorActual)
             tglMarc.isChecked=true
             tglRamp.isChecked=true
             tglRut.isChecked=true

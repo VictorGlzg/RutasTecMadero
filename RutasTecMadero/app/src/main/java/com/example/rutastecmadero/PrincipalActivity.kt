@@ -27,13 +27,21 @@ class PrincipalActivity : AppCompatActivity(){
         binding.navBar.setOnItemSelectedListener {
             when(it.itemId){
                 R.id.chatbotOpc -> replaceFragment(cbFragment)
-                R.id.mapaOpc -> replaceFragment(mpFragment)
+                R.id.mapaOpc -> loadMap()
                 R.id.configOpc -> replaceFragment(conFragment)
                 else -> {}
             }
             true
         }
 
+    }
+
+    private fun loadMap(){
+        if(conFragment.init){
+            mpFragment.loadConfig(conFragment.tglRut.isChecked,conFragment.tglRamp.isChecked,conFragment.tglMarc.isChecked,
+                conFragment.colorActual,conFragment.chkBox.isChecked)
+        }
+        replaceFragment(mpFragment)
     }
 
     @Suppress("DEPRECATION")
